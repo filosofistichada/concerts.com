@@ -6,6 +6,8 @@ import NavBar from './components/global/NavBar'
 import { CartPage } from './pages/cartPage'
 import type { CartItem, Concert } from './types'
 import { useState } from 'react'
+import LoginPage from './pages/loginPage'
+import SignupPage from './pages/signupPage'
 
 function App() {
   // let cart2: CartItem[] = [];
@@ -60,6 +62,8 @@ function App() {
                 onClearCart={clearCart}
               ></HomePage>}
           />
+          <Route path='/login' element={<LoginPage></LoginPage>}></Route>
+          <Route path='/signup' element={<SignupPage></SignupPage>}></Route>
           {/* Route cart path="/cart" */}
           <Route
             path="/cart"

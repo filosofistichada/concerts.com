@@ -14,6 +14,16 @@ export default function NavBar() {
           <NavLink to={"/"} className={({ isActive }) => (isActive ? `${linkBase} ${active}` : linkBase)}>
             Home
           </NavLink>
+          <NavLink to={"/login"} className={({ isActive }) => (isActive ? `${linkBase} ${active}` : linkBase)}>
+            <span className="inline-flex items-center gap-2">
+              Login
+            </span>
+          </NavLink>
+          <NavLink to={"/signup"} className={({ isActive }) => (isActive ? `${linkBase} ${active}` : linkBase)}>
+            <span className="inline-flex items-center gap-2">
+              Sign Up
+            </span>
+          </NavLink>
           <NavLink to={"/cart"} className={({ isActive }) => (isActive ? `${linkBase} ${active}` : linkBase)}>
             <span className="inline-flex items-center gap-2">
               Cart
