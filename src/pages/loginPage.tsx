@@ -30,9 +30,9 @@ export default function LoginPage() {
 
   return (
     <main className="mx-auto max-w-3xl px-6 py-10">
-      <h1>Login</h1>
-      <p>Don't have an accunt?
-        <Link to="/signup">Sign up</Link>
+      <h1 className="text-2xl font-semibold text-text">Login</h1>
+      <p className="mt-2 text-sm text-muted">Don't have an accunt?
+        <Link to="/signup" className="text-brand-700 pl-2 hover:underline">Sign up</Link>
       </p>
 
       <form onSubmit={onSubmit} className="mt-6 space-y-4">
