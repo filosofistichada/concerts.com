@@ -9,6 +9,7 @@ import { useState } from 'react'
 import LoginPage from './pages/loginPage'
 import SignupPage from './pages/signupPage'
 import ConcertDetailsPage from './pages/concertDetailsPage'
+import CheckoutPage from './pages/checkoutPage'
 
 function App() {
   // let cart2: CartItem[] = [];
@@ -78,6 +79,10 @@ function App() {
                 onQtyChange={updateQty}
                 onClearCart={clearCart}
               ></CartPage>}
+          />
+          <Route
+            path="/checkout"
+            element={<CheckoutPage cart={cart} onClearCart={clearCart} />}
           />
           <Route
             path='/concerts/:concertId'

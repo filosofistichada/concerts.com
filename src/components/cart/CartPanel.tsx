@@ -1,8 +1,14 @@
+import { useEffect, useState } from "react";
 import { formatPriceCOP } from "../../lib/formats";
 import type { CartItem } from "../../types";
 import Button from "../ui/Button";
 import StateMessage from "../ui/StateMessage";
 import CartItemRow from "./CartItemRow";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
+
+const CHECKOUT_LOGIN_ERROR =
+  "You cannot buy tickets without log in. if you want to checkout, please login first and then try again";
 
 type Props = {
   items: CartItem[];
@@ -18,7 +24,24 @@ export default function CartPanel({ items, width, onRemoveFromCart, onClearCart,
   //     setTotalTickets(...)
   // }
   const totalTickets = items.reduce((acc, item) => acc + item.qty, 0);
-  const totalPrice = items.reduce((acc, item) => acc + item.price * item.qty, 0);;
+  const totalPrice = items.reduce((acc, item) => acc + item.price * item.qty, 0);
+  const navigate = useNavigate();
+  const { user } = useAuth();
+  const [checkoutError, setCheckoutError] = useState<string | null>(null);
+
+  useEffect(() => {
+    setCheckoutError(null);
+  }, [items]);
+
+  function handleCheckout() {
+    if (!user) {
+      setCheckoutError(CHECKOUT_LOGIN_ERROR);
+      return;
+    }
+    setCheckoutError(null);
+    navigate("/checkout");
+  }
+
   return (
     <aside className={`rounded-card border lg:${width} top-0 border-border sticky h-fit bg-surface p-4 shadow-card`}>
       <div className="flex items-center justify-between gap-3">
@@ -57,6 +80,23 @@ export default function CartPanel({ items, width, onRemoveFromCart, onClearCart,
               <span className="text-muted">Total</span>
               <span className="font-semibold">{formatPriceCOP(totalPrice)}</span>
             </div>
+          </div>
+          {checkoutError ? (
+            <div className="mt-4">
+              <StateMessage
+                type="error"
+                extraCss="bg-red-200"
+                title="Cannot checkout"
+                description={checkoutError}
+                actionText="Log in"
+                onAction={() => navigate("/login")}
+              />
+            </div>
+          ) : null}
+          <div className="mt-4">
+            <Button variant="primary" fullWidth onClick={handleCheckout}>
+              Checkout
+            </Button>
           </div>
         </>
       )}
